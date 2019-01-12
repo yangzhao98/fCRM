@@ -203,7 +203,7 @@ fCRM <- function(
   DoseLevel<- NULL
   pihat    <- rep(0, length(p))
   Stop     <- 0
-  CurrentTime <- 1
+  CurrentTime <- 0
   AssessTime  <- NULL
   for (i in 1:NCohort){
     ## 1st Cohort
@@ -231,10 +231,7 @@ fCRM <- function(
     ## Next Cohort
     CurrentTime <- CurrentTime + a      ## EntryDate Time for  Next Cohort
     DLT <- (TimeY < (CurrentTime - AssessTime + tau))*(CurrentTime < AssessTime) +
-      (TimeY <= tau)*(CurrentTime >= AssessTime);
-
-    Time <- TimeY*DLT + (1-DLT)*(CurrentTime - AssessTime + tau)*(CurrentTime < AssessTime) +
-      (1-DLT)*TimeY*(CurrentTime >= AssessTime)    
+      (TimeY <= tau)*(CurrentTime >= AssessTime);  
     
     while (sum(DLT) == 0) {
       CurrentTime <- CurrentTime + a
@@ -246,7 +243,8 @@ fCRM <- function(
       }
     }
     
-
+    Time <- TimeY*DLT + (1-DLT)*(CurrentTime - AssessTime + tau)*(CurrentTime < AssessTime) +
+      (1-DLT)*TimeY*(CurrentTime >= AssessTime)  
     
     if(sum(DLT) == 0 && DoseCurr <  length(p)){ 
       DoseCurr <- DoseCurr + 1 
