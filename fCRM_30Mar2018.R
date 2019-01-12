@@ -203,7 +203,7 @@ fCRM <- function(
   DoseLevel<- NULL
   pihat    <- rep(0, length(p))
   Stop     <- 0
-  CurrentTime <- 1
+  CurrentTime <- 0
   AssessTime  <- NULL
   for (i in 1:NCohort){
     ## 1st Cohort
